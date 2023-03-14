@@ -32,13 +32,14 @@ public class StepsMain {
 
     public void openAbout() {
         Allure.step("Переход на страницу About");
+
         main.mainMenuButton.perform(click());
         main.about.perform(click());
         main.aboutScreen.check(matches(isDisplayed()));
     }
 
     public void clickButtonAllNews() {
-        Allure.step("ереход по ссылке All News на странице");
+        Allure.step("Переход по ссылке All News на странице");
         main.allNews.perform(click());
         main.newsScreen.check(matches(isDisplayed()));
     }

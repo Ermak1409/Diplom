@@ -1,41 +1,41 @@
 package ru.iteco.fmhandroid.ui.tests;
 
-import android.os.SystemClock;
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
+import static ru.iteco.fmhandroid.ui.helper.Helper.waitShown;
 
 import androidx.test.espresso.NoMatchingViewException;
+import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
-import io.qameta.allure.android.runners.AllureAndroidJUnit4;
 import io.qameta.allure.kotlin.junit4.DisplayName;
+import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.AppActivity;
 import ru.iteco.fmhandroid.ui.steps.StepsAuthorization;
 import ru.iteco.fmhandroid.ui.steps.StepsMain;
 
 
-@RunWith(AllureAndroidJUnit4.class)
+@LargeTest
 public class MainTests {
+    @Rule
+    public ActivityTestRule<AppActivity> mActivityTestRule = new ActivityTestRule<>(AppActivity.class);
     static StepsAuthorization auth = new StepsAuthorization();
     static StepsMain main = new StepsMain();
 
-    @Rule
-    public ActivityTestRule<AppActivity> mActivityTestRule =
-            new ActivityTestRule<>(AppActivity.class);
-
     @Before
     public void authCheck() {
-        SystemClock.sleep(5000);
+        onView(isRoot()).perform(waitShown(R.id.container_custom_app_bar_include_on_fragment_main, 8000));
         try {
             main.isMainScreen();
         } catch (NoMatchingViewException e) {
             auth.validAuth();
         }
-        SystemClock.sleep(1000);
     }
+
 
     @Test
     @DisplayName("Переход на страницу Claims")
@@ -68,3 +68,4 @@ public class MainTests {
     }
 
 }
+

@@ -6,12 +6,16 @@ import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.isEnabled;
+import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static org.hamcrest.Matchers.allOf;
+
+import static ru.iteco.fmhandroid.ui.helper.Helper.waitShown;
 
 import android.os.SystemClock;
 
 import io.qameta.allure.kotlin.Allure;
+import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.page.Authorization;
 
 public class StepsAuthorization {
@@ -49,7 +53,7 @@ public class StepsAuthorization {
         auth.password.perform(replaceText("password2"));
         Allure.step("Нажать на кнопку Войти");
         auth.signInButton.perform(click());
-        SystemClock.sleep(3000);
+//        onView(isRoot()).perform(waitShown(R.id.container_custom_app_bar_include_on_fragment_main, 8000));
         main.isMainScreen();
     }
     public void emptyLoginOrPass(){
